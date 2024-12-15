@@ -2,10 +2,18 @@
 
 namespace TagCloud.CloudLayouter.PointLayouter.PointGenerator.Generators;
 
-public class SquareArchimedesSpiral(uint step) : IPointGenerator
+public class SquareArchimedesSpiral : IPointGenerator
 {
-    public uint Step { get; } = step;
+    public int Step { get; }
 
+    public SquareArchimedesSpiral(int step)
+    {
+        if (step <= 0)
+            throw new ArgumentException("Step should be positive number");
+        
+        Step = step;
+    }
+    
     public IEnumerable<Point> StartFrom(Point startPoint)
     {
         var neededPoints = 1;
@@ -27,15 +35,14 @@ public class SquareArchimedesSpiral(uint step) : IPointGenerator
                 pointsToPlace = neededPoints;
             }
         }
-        // ReSharper disable once IteratorNeverReturns
     }
     
     private Size GetOffsetSize(Direction direction) => direction switch
     {
-        Direction.Up => new Size(0, (int)Step),
-        Direction.Right => new Size((int)Step, 0),
-        Direction.Down => new Size(0, -(int)Step),
-        Direction.Left => new Size(-(int)Step, 0),
+        Direction.Up => new Size(0, Step),
+        Direction.Right => new Size(Step, 0),
+        Direction.Down => new Size(0, -Step),
+        Direction.Left => new Size(-Step, 0),
         _ => throw new ArgumentOutOfRangeException(nameof(direction))
     };
 }
