@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="Autofac" Version="8.1.1" />
+      <PackageReference Include="WeCantSpell.Hunspell" Version="5.2.1" />
     </ItemGroup>
 
 </Project>

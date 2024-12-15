@@ -5,5 +5,5 @@ public interface IWordsFilter
     /*
      * Apply some function on words list
      */
-    List<string> FilterWords(List<string> words);
+    List<string> ApplyFilter(List<string> words);
 }
