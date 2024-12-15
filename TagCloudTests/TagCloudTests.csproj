@@ -25,7 +25,6 @@
     <ItemGroup>
       <Folder Include="ImageGenerator\" />
       <Folder Include="WordsFilter\" />
-      <Folder Include="WordsReader\" />
     </ItemGroup>
 
     <ItemGroup>
