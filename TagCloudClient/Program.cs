@@ -32,6 +32,7 @@ internal class Program
         var builder = new ContainerBuilder();
 
         builder.RegisterInstance(SettingsFactory.BuildBitmapSettings(settings)).AsSelf();
+        builder.RegisterInstance(SettingsFactory.BuildWordReaderSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildFileReaderSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildPolarSpiralSettings(settings)).AsSelf();
         builder.Register(context => SettingsFactory.BuildPointLayouterSettings(
@@ -41,6 +42,10 @@ internal class Program
         builder
             .RegisterType<FileReader>().As<IWordsReader>()
             .OnlyIf(_ => Path.GetExtension(settings.Path) == ".txt");
+        
+        builder
+            .RegisterType<WordFileReader>().As<IWordsReader>()
+            .OnlyIf(_ => Path.GetExtension(settings.Path) == ".docx");
         
         builder
             .RegisterType<PolarArchimedesSpiral>().As<IPointGenerator>()

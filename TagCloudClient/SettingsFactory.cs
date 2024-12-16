@@ -22,4 +22,7 @@ public static class SettingsFactory
 
     public static PointLayouterSettings BuildPointLayouterSettings(Options options, IPointGenerator generator)
         => new(options.Center, generator);
+
+    public static WordFileReaderSettings BuildWordReaderSettings(Options options)
+        => new(options.Path);
 }
