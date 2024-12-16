@@ -1,5 +1,4 @@
-﻿using System.Drawing.Imaging;
-using Autofac;
+﻿using Autofac;
 using CommandLine;
 using TagCloud;
 using TagCloud.CloudLayouter;
