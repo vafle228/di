@@ -18,13 +18,16 @@ public class BitmapGenerator(BitmapSettings settings, ICloudLayouter layouter)
         foreach (var tag in tags)
         {
             var font = new Font(settings.Font, tag.FontSize);
-            var wordSize = graphics.MeasureString(tag.Word, font);
+            var wordSize = CeilSize(graphics.MeasureString(tag.Word, font));
             
-            var positionRect = layouter.PutNextRectangle(wordSize.ToSize());
+            var positionRect = layouter.PutNextRectangle(wordSize);
             graphics.DrawString(tag.Word, font, brush, positionRect);
         }
 
         return bitmap;
     }
+    
+    private static Size CeilSize(SizeF size) 
+        => new((int)size.Width + 1, (int)size.Height + 1);
 }
 #pragma warning restore CA1416

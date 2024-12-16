@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Text;
 using CommandLine;
+using TagCloud.CloudLayouter.Settings.Generators;
 
 namespace TagCloudClient;
 
@@ -54,4 +55,9 @@ public class Options
         Required = false,
         HelpText = "The center of the cloud in the image")]
     public Point Center { get; set; } = new(1920 / 2, 1080 / 2);
+
+    [Option('g', "generator",
+        Required = false,
+        HelpText = "Point generator to use")]
+    public PossibleGenerators UsingGenerator { get; set; } = PossibleGenerators.POLAR_SPIRAL;
 }

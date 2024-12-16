@@ -1,12 +1,17 @@
 ﻿using System.Drawing;
 using TagCloud.CloudLayouter.PointLayouter.PointGenerator;
+using TagCloud.CloudLayouter.Settings;
 
 namespace TagCloud.CloudLayouter.PointLayouter;
 
-public class SpiralCloudLayouter(Point center, IPointGenerator pointGenerator) : ICloudLayouter
+public class PointCloudLayouter(Point center, IPointGenerator pointGenerator) : ICloudLayouter
 {
     private readonly List<Point> placedPoints = [];
     private readonly List<Rectangle> placedRectangles = [];
+    
+    public PointCloudLayouter(PointLayouterSettings settings)
+        : this(settings.Center, settings.Generator) 
+    { }
 
     public Point Center { get; } = center;
 

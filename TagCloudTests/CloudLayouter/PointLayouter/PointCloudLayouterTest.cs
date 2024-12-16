@@ -43,7 +43,7 @@ public class PointCloudLayouterTest
     public void SpiralCloudLayouter_InitCenterAtGivenPoint(Point center)
     {
         var pointGenerator = new SquareArchimedesSpiral(1);
-        var layouter = new SpiralCloudLayouter(center, pointGenerator);
+        var layouter = new PointCloudLayouter(center, pointGenerator);
         
         layouter.Center.Should().BeEquivalentTo(center);
     }
@@ -53,7 +53,7 @@ public class PointCloudLayouterTest
     {
         var squareSize = new Size(100, 100);
         var pointGenerator = new SquareArchimedesSpiral(1);
-        var layouter = new SpiralCloudLayouter(new Point(0, 0), pointGenerator);
+        var layouter = new PointCloudLayouter(new Point(0, 0), pointGenerator);
         
         var rect = layouter.PutNextRectangle(squareSize);
         rectangles = [rect];
@@ -67,7 +67,7 @@ public class PointCloudLayouterTest
     [Repeat(10)]
     public void SpiralCloudLayouter_PutNextRectangle_AllRectsShouldNotIntersect(IPointGenerator pointGenerator)
     {
-        var layouter = new SpiralCloudLayouter(new Point(0, 0), pointGenerator);
+        var layouter = new PointCloudLayouter(new Point(0, 0), pointGenerator);
         rectangles = PlaceRectangles(10, layouter);
 
         var intersectedRect = () => rectangles
@@ -83,7 +83,7 @@ public class PointCloudLayouterTest
     [Repeat(10)]
     public void SpiralCloudLayouter_PutNextRectangle_SatisfyDensityMinimum(IPointGenerator pointGenerator, double min)
     {
-        var layouter = new SpiralCloudLayouter(new Point(0, 0), pointGenerator);
+        var layouter = new PointCloudLayouter(new Point(0, 0), pointGenerator);
         rectangles = PlaceRectangles(100, layouter);
 
         var claimedArea = FindClaimedRectangle(rectangles).Area();

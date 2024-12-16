@@ -1,10 +1,15 @@
 ﻿using System.Drawing;
+using TagCloud.CloudLayouter.Settings.Generators;
 
 namespace TagCloud.CloudLayouter.PointLayouter.PointGenerator.Generators;
 
 public class SquareArchimedesSpiral : IPointGenerator
 {
     public int Step { get; }
+    
+    public SquareArchimedesSpiral(SquareSpiralSettings settings)
+        : this(settings.Step)
+    { }
 
     public SquareArchimedesSpiral(int step)
     {
@@ -19,7 +24,7 @@ public class SquareArchimedesSpiral : IPointGenerator
         var neededPoints = 1;
         var pointsToPlace = 1;
         var direction = Direction.Up;
-        var currentPoint = Point.Empty;
+        var currentPoint = startPoint;
 
         while (true)
         {

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using TagCloud.CloudLayouter.Settings.Generators;
 
 namespace TagCloud.CloudLayouter.PointLayouter.PointGenerator.Generators;
 
@@ -7,6 +8,9 @@ public class PolarArchimedesSpiral : IPointGenerator
     public double Radius { get; }
     public double AngleOffset { get; }
     
+    public PolarArchimedesSpiral(PolarSpiralSettings settings) 
+        : this(settings.Radius, settings.AngleOffset) 
+    { }
 
     public PolarArchimedesSpiral(double radius, double angleOffset)
     {
