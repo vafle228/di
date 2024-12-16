@@ -5,6 +5,7 @@ using TagCloud.WordsFilter;
 using TagCloud.WordsFilter.Filters;
 using TagCloud.WordsReader;
 using TagCloud.WordsReader.Readers;
+using TagCloud.WordsReader.Settings;
 
 namespace TagCloudClient;
 
@@ -25,10 +26,11 @@ internal class Program
     private static IContainer BuildContainer(Options settings)
     {
         var builder = new ContainerBuilder();
+
+        builder.RegisterInstance(SettingsFactory.BuildFileReaderSettings(settings)).AsSelf();
     
         builder
-            .Register(_ => new FileReader(settings.Path, settings.UsingEncoding))
-            .As<IWordsReader>()
+            .RegisterType<FileReader>().As<IWordsReader>()
             .OnlyIf(_ => Path.GetExtension(settings.Path) == ".txt");
     
         builder.RegisterType<LowercaseFilter>().As<IWordsFilter>();
