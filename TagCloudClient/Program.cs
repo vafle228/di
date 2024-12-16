@@ -1,18 +1,18 @@
-﻿using System.Drawing;
-using Autofac;
+﻿using Autofac;
 using CommandLine;
+using TagCloud;
 using TagCloud.WordsFilter;
 using TagCloud.WordsFilter.Filters;
 using TagCloud.WordsReader;
 using TagCloud.WordsReader.Readers;
 
-namespace TagCloud;
+namespace TagCloudClient;
 
 internal class Program
 {
     public static void Main(string[] args)
     {
-        Parser.Default.ParseArguments<CloudGeneratorSettings>(args)
+        Parser.Default.ParseArguments<Options>(args)
             .WithParsed(settings =>
             {
                 Console.WriteLine(settings.UsingEncoding);
@@ -22,7 +22,7 @@ internal class Program
             });
     }
 
-    private static IContainer BuildContainer(CloudGeneratorSettings settings)
+    private static IContainer BuildContainer(Options settings)
     {
         var builder = new ContainerBuilder();
     

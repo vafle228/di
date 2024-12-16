@@ -1,10 +1,10 @@
-﻿using CommandLine;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Text;
+using CommandLine;
 
-namespace TagCloud;
+namespace TagCloudClient;
 
-public class CloudGeneratorSettings
+public class Options
 {
     [Value(0, Required = true, HelpText = "Source file path")]
     public string Path { get; set; } = "";
