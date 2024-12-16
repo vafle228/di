@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Drawing.Imaging;
 using TagCloud.CloudLayouter;
 
 namespace TagCloud.ImageGenerator;
@@ -6,7 +7,7 @@ namespace TagCloud.ImageGenerator;
 #pragma warning disable CA1416
 public class BitmapGenerator(BitmapSettings settings, ICloudLayouter layouter)
 {
-    public Bitmap GenerateWindowsBitmap(List<WordTag> tags)
+    public string GenerateWindowsBitmap(List<WordTag> tags)
     {
         var size = settings.Sizes;
         var bitmap = new Bitmap(size.Width, size.Height);
@@ -23,8 +24,9 @@ public class BitmapGenerator(BitmapSettings settings, ICloudLayouter layouter)
             var positionRect = layouter.PutNextRectangle(wordSize);
             graphics.DrawString(tag.Word, font, brush, positionRect);
         }
+        bitmap.Save(settings.ImageName, ImageFormat.Png);
 
-        return bitmap;
+        return settings.ImageName;
     }
     
     private static Size CeilSize(SizeF size) 

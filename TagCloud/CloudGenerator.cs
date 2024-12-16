@@ -11,7 +11,7 @@ public class CloudGenerator(
     IEnumerable<IWordsFilter> filters)
 {
     private const int MIN_FONT_SIZE = 10;
-    private const int MAX_FONT_SIZE = 100;
+    private const int MAX_FONT_SIZE = 80;
 
     public string GenerateTagCloud()
     {
@@ -20,15 +20,14 @@ public class CloudGenerator(
         var freqDict = filters
             .Aggregate(words, (c, f) => f.ApplyFilter(c))
             .GroupBy(w => w)
+            .OrderByDescending(g => g.Count())
             .ToDictionary(g => g.Key, g => g.Count());
         
         var maxFreq = freqDict.Values.Max();
         var tagsList = freqDict.Select(pair => ToWordTag(pair, maxFreq)).ToList();
+        var imagePath = imageGenerator.GenerateWindowsBitmap(tagsList);
         
-        var image = imageGenerator.GenerateWindowsBitmap(tagsList);
-        image.Save("result.png", ImageFormat.Png);
-        
-        return string.Empty;
+        return Path.Combine(Directory.GetCurrentDirectory(), imagePath);
     }
 
     private static int TransformFreqToSize(int freq, int maxFreq) 

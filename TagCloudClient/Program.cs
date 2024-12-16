@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using Autofac;
+﻿using Autofac;
 using CommandLine;
 using TagCloud;
 using TagCloud.CloudLayouter;
@@ -24,7 +23,7 @@ internal class Program
             {
                 var container = BuildContainer(settings);
                 var generator = container.Resolve<CloudGenerator>();
-                generator.GenerateTagCloud();
+                Console.WriteLine("File saved in " + generator.GenerateTagCloud());
             });
     }
 
@@ -35,9 +34,9 @@ internal class Program
         builder.RegisterInstance(SettingsFactory.BuildBitmapSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildFileReaderSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildPolarSpiralSettings(settings)).AsSelf();
-        builder.RegisterInstance(SettingsFactory.BuildSquareSpiralSettings(settings)).AsSelf();
         builder.Register(context => SettingsFactory.BuildPointLayouterSettings(
             settings, context.Resolve<IPointGenerator>())).AsSelf();
+        builder.RegisterInstance(SettingsFactory.BuildSquareSpiralSettings(settings)).AsSelf();
 
         builder
             .RegisterType<FileReader>().As<IWordsReader>()
