@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Drawing;
+using Autofac;
 using CommandLine;
 using TagCloud;
 using TagCloud.WordsFilter;
@@ -27,6 +28,7 @@ internal class Program
     {
         var builder = new ContainerBuilder();
 
+        builder.RegisterInstance(SettingsFactory.BuildBitmapSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildFileReaderSettings(settings)).AsSelf();
     
         builder
