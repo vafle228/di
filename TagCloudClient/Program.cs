@@ -31,22 +31,52 @@ internal class Program
     {
         var builder = new ContainerBuilder();
 
+        RegisterSettings(builder, settings);
+        RegisterLayouters(builder, settings);
+        RegisterWordsReaders(builder, settings);
+        RegisterWordsFilters(builder, settings);
+
+        builder.RegisterType<CloudGenerator>().AsSelf();
+        builder.RegisterType<BitmapGenerator>().AsSelf();
+
+        return builder.Build();
+    }
+
+    private static void RegisterSettings(ContainerBuilder builder, Options settings)
+    {
         builder.RegisterInstance(SettingsFactory.BuildBitmapSettings(settings)).AsSelf();
+        builder.RegisterInstance(SettingsFactory.BuildCsvReaderSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildWordReaderSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildFileReaderSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildPolarSpiralSettings(settings)).AsSelf();
         builder.Register(context => SettingsFactory.BuildPointLayouterSettings(
             settings, context.Resolve<IPointGenerator>())).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildSquareSpiralSettings(settings)).AsSelf();
+    }
 
+    private static void RegisterWordsReaders(ContainerBuilder builder, Options settings)
+    {
         builder
             .RegisterType<FileReader>().As<IWordsReader>()
             .OnlyIf(_ => Path.GetExtension(settings.Path) == ".txt");
+
+        builder
+            .RegisterType<CsvFileReader>().As<IWordsReader>()
+            .OnlyIf(_ => Path.GetExtension(settings.Path) == ".csv");
         
         builder
             .RegisterType<WordFileReader>().As<IWordsReader>()
             .OnlyIf(_ => Path.GetExtension(settings.Path) == ".docx");
-        
+    }
+
+    private static void RegisterWordsFilters(ContainerBuilder builder, Options settings)
+    {
+        builder.RegisterType<LowercaseFilter>().As<IWordsFilter>();
+        builder.RegisterType<BoringWordsFilter>().As<IWordsFilter>();
+    }
+
+    private static void RegisterLayouters(ContainerBuilder builder, Options settings)
+    {
         builder
             .RegisterType<PolarArchimedesSpiral>().As<IPointGenerator>()
             .OnlyIf(_ => settings.UsingGenerator == PossibleGenerators.POLAR_SPIRAL);
@@ -54,15 +84,6 @@ internal class Program
         builder
             .RegisterType<SquareArchimedesSpiral>().As<IPointGenerator>()
             .OnlyIf(_ => settings.UsingGenerator == PossibleGenerators.SQUARE_SPIRAL);
-    
-        builder.RegisterType<LowercaseFilter>().As<IWordsFilter>();
-        builder.RegisterType<BoringWordsFilter>().As<IWordsFilter>();
-
-        builder.RegisterType<BitmapGenerator>().AsSelf();
         builder.RegisterType<PointCloudLayouter>().As<ICloudLayouter>();
-        
-        builder.RegisterType<CloudGenerator>().AsSelf();
-    
-        return builder.Build();
     }
 }

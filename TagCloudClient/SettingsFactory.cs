@@ -25,4 +25,7 @@ public static class SettingsFactory
 
     public static WordFileReaderSettings BuildWordReaderSettings(Options options)
         => new(options.Path);
+    
+    public static CsvFileReaderSettings BuildCsvReaderSettings(Options options) 
+        => new(options.Path, options.Culture);
 }

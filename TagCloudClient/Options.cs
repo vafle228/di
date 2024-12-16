@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Globalization;
 using System.Text;
 using CommandLine;
 using TagCloud.CloudLayouter.Settings.Generators;
@@ -60,4 +61,9 @@ public class Options
         Required = false,
         HelpText = "Point generator to use")]
     public PossibleGenerators UsingGenerator { get; set; } = PossibleGenerators.POLAR_SPIRAL;
+    
+    [Option("culture", 
+        Required = false, 
+        HelpText = "CSV culture information")]
+    public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
 }
