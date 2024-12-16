@@ -2,6 +2,7 @@
 using TagCloud.CloudLayouter.Settings;
 using TagCloud.CloudLayouter.Settings.Generators;
 using TagCloud.ImageGenerator;
+using TagCloud.ImageSaver;
 using TagCloud.WordsReader.Settings;
 
 namespace TagCloudClient;
@@ -12,7 +13,7 @@ public static class SettingsFactory
         => new(options.FilePath, options.UsingEncoding);
 
     public static BitmapSettings BuildBitmapSettings(Options options)
-        => new(options.Size, options.Font, options.ImageName, options.BackgroundColor, options.ForegroundColor);
+        => new(options.Size, options.Font, options.BackgroundColor, options.ForegroundColor);
 
     public static PolarSpiralSettings BuildPolarSpiralSettings(Options options)
         => new(options.Step, options.DeltaAngle);
@@ -28,4 +29,7 @@ public static class SettingsFactory
     
     public static CsvFileReaderSettings BuildCsvReaderSettings(Options options) 
         => new(options.FilePath, options.Culture);
+
+    public static FileSaveSettings BuildFileSaveSettings(Options options)
+        => new(options.ImageName, options.ImageFormat);
 }

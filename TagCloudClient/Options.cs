@@ -38,10 +38,15 @@ public class Options
         HelpText = "Words color")]
     public Color ForegroundColor { get; set; } = Color.White;
 
-    [Option('n', "image-name", 
+    [Option("image-name", 
         Required = false, 
-        HelpText = "Path to save (relative)")]
-    public string ImageName { get; set; } = "result.png";
+        HelpText = "Image name")]
+    public string ImageName { get; set; } = "result";
+    
+    [Option("image-format", 
+        Required = false, 
+        HelpText = "Image format")]
+    public string ImageFormat { get; set; } = "png";
 
     [Option("delta-angle", 
         Required = false, 

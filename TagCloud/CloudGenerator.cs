@@ -1,11 +1,13 @@
 ﻿using System.Drawing.Imaging;
 using TagCloud.ImageGenerator;
+using TagCloud.ImageSaver;
 using TagCloud.WordsFilter;
 using TagCloud.WordsReader;
 
 namespace TagCloud;
 
 public class CloudGenerator(
+    IImageSaver saver,
     IWordsReader reader, 
     BitmapGenerator imageGenerator,
     IEnumerable<IWordsFilter> filters)
@@ -25,9 +27,8 @@ public class CloudGenerator(
         
         var maxFreq = freqDict.Values.Max();
         var tagsList = freqDict.Select(pair => ToWordTag(pair, maxFreq)).ToList();
-        var imagePath = imageGenerator.GenerateWindowsBitmap(tagsList);
         
-        return Path.Combine(Directory.GetCurrentDirectory(), imagePath);
+        return saver.Save(imageGenerator.GenerateWindowsBitmap(tagsList));
     }
 
     private static int TransformFreqToSize(int freq, int maxFreq) 

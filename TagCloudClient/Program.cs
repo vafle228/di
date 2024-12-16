@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Drawing.Imaging;
+using Autofac;
 using CommandLine;
 using TagCloud;
 using TagCloud.CloudLayouter;
@@ -7,6 +8,7 @@ using TagCloud.CloudLayouter.PointLayouter.PointGenerator;
 using TagCloud.CloudLayouter.PointLayouter.PointGenerator.Generators;
 using TagCloud.CloudLayouter.Settings.Generators;
 using TagCloud.ImageGenerator;
+using TagCloud.ImageSaver;
 using TagCloud.WordsFilter;
 using TagCloud.WordsFilter.Filters;
 using TagCloud.WordsReader;
@@ -38,6 +40,7 @@ internal class Program
 
         builder.RegisterType<CloudGenerator>().AsSelf();
         builder.RegisterType<BitmapGenerator>().AsSelf();
+        builder.RegisterType<BitmapFileSaver>().As<IImageSaver>();
 
         return builder.Build();
     }
@@ -45,6 +48,7 @@ internal class Program
     private static void RegisterSettings(ContainerBuilder builder, Options settings)
     {
         builder.RegisterInstance(SettingsFactory.BuildBitmapSettings(settings)).AsSelf();
+        builder.RegisterInstance(SettingsFactory.BuildFileSaveSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildCsvReaderSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildWordReaderSettings(settings)).AsSelf();
         builder.RegisterInstance(SettingsFactory.BuildFileReaderSettings(settings)).AsSelf();
