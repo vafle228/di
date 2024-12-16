@@ -1,5 +1,4 @@
-﻿using System.Drawing.Imaging;
-using TagCloud.ImageGenerator;
+﻿using TagCloud.ImageGenerator;
 using TagCloud.ImageSaver;
 using TagCloud.WordsFilter;
 using TagCloud.WordsReader;

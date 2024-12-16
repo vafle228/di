@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="ApprovalTests" Version="7.0.0-beta.3" />
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
         <PackageReference Include="FluentAssertions" Version="8.0.0-alpha.1" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
@@ -20,10 +21,6 @@
 
     <ItemGroup>
         <Using Include="NUnit.Framework"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="ImageGenerator\" />
     </ItemGroup>
 
     <ItemGroup>
