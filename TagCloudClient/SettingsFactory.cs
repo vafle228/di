@@ -9,7 +9,7 @@ namespace TagCloudClient;
 public static class SettingsFactory
 {
     public static FileReaderSettings BuildFileReaderSettings(Options options)
-        => new(options.Path, options.UsingEncoding);
+        => new(options.FilePath, options.UsingEncoding);
 
     public static BitmapSettings BuildBitmapSettings(Options options)
         => new(options.Size, options.Font, options.ImageName, options.BackgroundColor, options.ForegroundColor);
@@ -24,8 +24,8 @@ public static class SettingsFactory
         => new(options.Center, generator);
 
     public static WordFileReaderSettings BuildWordReaderSettings(Options options)
-        => new(options.Path);
+        => new(options.FilePath);
     
     public static CsvFileReaderSettings BuildCsvReaderSettings(Options options) 
-        => new(options.Path, options.Culture);
+        => new(options.FilePath, options.Culture);
 }

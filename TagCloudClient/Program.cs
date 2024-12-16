@@ -58,15 +58,15 @@ internal class Program
     {
         builder
             .RegisterType<FileReader>().As<IWordsReader>()
-            .OnlyIf(_ => Path.GetExtension(settings.Path) == ".txt");
+            .OnlyIf(_ => Path.GetExtension(settings.FilePath) == ".txt");
 
         builder
             .RegisterType<CsvFileReader>().As<IWordsReader>()
-            .OnlyIf(_ => Path.GetExtension(settings.Path) == ".csv");
+            .OnlyIf(_ => Path.GetExtension(settings.FilePath) == ".csv");
         
         builder
             .RegisterType<WordFileReader>().As<IWordsReader>()
-            .OnlyIf(_ => Path.GetExtension(settings.Path) == ".docx");
+            .OnlyIf(_ => Path.GetExtension(settings.FilePath) == ".docx");
     }
 
     private static void RegisterWordsFilters(ContainerBuilder builder, Options settings)

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Text;
 using CommandLine;
@@ -9,7 +10,7 @@ namespace TagCloudClient;
 public class Options
 {
     [Value(0, Required = true, HelpText = "Source file path")]
-    public string Path { get; set; }
+    public string FilePath { get; set; }
 
     [Option('e', "encoding",
         Required = false,
